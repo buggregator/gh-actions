@@ -60,20 +60,11 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ matrix.php }}-composer
 
       - name: Install Dependencies
-        if: matrix.php-version != '8.2'
         uses: nick-invision/retry@v2
         with:
           timeout_minutes: 5
           max_attempts: 5
-          command: composer update --prefer-dist --no-interaction --no-progress
-
-      - name: Install Dependencies (ignore platform reqs)
-        if: matrix.php-version == '8.2'
-        uses: nick-invision/retry@v2
-        with:
-          timeout_minutes: 5
-          max_attempts: 5
-          command: composer update --prefer-dist --no-interaction --no-progress --ignore-platform-reqs
+          command: composer update --prefer-dist --no-interaction --no-progresss --ignore-platform-reqs
 
       - name: Static Analysis
         run: |

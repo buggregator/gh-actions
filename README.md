@@ -1,9 +1,8 @@
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/2461257/112313394-d926c580-8cb8-11eb-84ea-717df4e4d167.png" width="400" alt="Spiral Framework">
-    <h1 align="center">Spiral Framework GitHub Actions</h1>
+    <img src="https://github.com/buggregator/gh-actions/assets/773481/a09810d4-aead-477f-86a2-01cab5f24904" width="400" alt="Buggregator">
+    <h1 align="center">Buggregator GitHub Actions</h1>
     <br>
 </p>
-
 
 ## General usage
 
@@ -23,15 +22,12 @@ name: phpunit
 
 jobs:
   phpunit:
-    uses: spiral/gh-actions/.github/workflows/phpunit.yml@master
+    uses: buggregator/gh-actions/.github/workflows/phpunit.yml@master
     with:
-      # coverage: pcov / coverage: xdebug / coverage: xdebug2 / coverage: none 
-      # extensions: pdo, pdo_pgsql
       os: >-
         ['ubuntu-latest']
       php: >-
-        ['8.1']
-      #tools: composer:v2 
+        ['8.3']
 ```
 
 ### Example of use of the action [PSALM](https://github.com/vimeo/psalm)
@@ -48,15 +44,13 @@ name: static analysis
 
 jobs:
   psalm:
-    uses: spiral/gh-actions/.github/workflows/psalm.yml@master
+    uses: buggregator/gh-actions/.github/workflows/psalm.yml@master
     with:
       os: >-
         ['ubuntu-latest']
       php: >-
-        ['8.1']
+        ['8.3']
 ```
-
-### Example of use of the action [Coding standarts](https://github.com/spiral/code-style)
 
 ```yml
 on:
@@ -70,14 +64,10 @@ name: coding standards
 
 jobs:
   coding-standards:
-    uses: spiral/gh-actions/.github/workflows/cs.yml@master
+    uses: buggregator/gh-actions/.github/workflows/cs.yml@master
     with:
       os: >-
         ['ubuntu-latest']
       php: >-
-        ['8.1']
+        ['8.3']
 ```
-
-License:
---------
-MIT License (MIT). Please see [`LICENSE`](./LICENSE) for more information. Maintained by [Spiral Scout](https://spiralscout.com).

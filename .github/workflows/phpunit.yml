@@ -3,16 +3,6 @@ name: phpunit
 on:
   workflow_call:
     inputs:
-      install_protoc:
-        description: Install protoc.
-        default: false
-        required: false
-        type: boolean
-      coverage:
-        description: Generate code coverage report.
-        default: pcov
-        required: false
-        type: string
       extensions:
         description: List of extensions to PHP.
         default: sockets
@@ -41,11 +31,6 @@ on:
         default: composer:v2
         required: false
         type: string
-      test-server:
-        description: Run test server.
-        default: false
-        required: false
-        type: boolean
 
 jobs:
   phpunit:
@@ -66,10 +51,6 @@ jobs:
         run: |
           git config --global core.autocrlf false
           git config --global core.eol lf
-
-      - name: Install Protoc
-        uses: arduino/setup-protoc@v1
-        if: ${{ inputs.install_protoc }}
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -111,27 +92,6 @@ jobs:
           max_attempts: 5
           command: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress
 
-      - name: Build test server
-        run: docker build --tag test-server:local -f ./tests/test-server/Dockerfile ./tests/test-server
-        if: ${{ inputs.test-server }}
-
-      - name: Run test server
-        run: docker run --name test-server --rm -d -p "7079:7079/tcp" test-server:local
-        if: ${{ inputs.test-server }}
-
       # Execution
       - name: Execute Tests
-        run: vendor/bin/phpunit --coverage-clover=coverage.clover
-
-      - name: Upload Coverage To Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.clover
-          fail_ci_if_error: false
-
-      - name: Upload coverage to Scrutinizer
-        continue-on-error: true # if it's fork
-        uses: sudo-bot/action-scrutinizer@latest
-        with:
-          cli-args: "--format=php-clover coverage.clover"
+        run: vendor/bin/phpunit

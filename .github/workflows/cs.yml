@@ -64,7 +64,7 @@ jobs:
         with:
           timeout_minutes: 5
           max_attempts: 5
-          command: composer update --prefer-dist --no-interaction --no-progress
+          command: composer update --prefer-dist --no-interaction --no-progress --ignore-platform-reqs
 
       - name: Check Coding Standards
-        run: vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php -vvv --dry-run --using-cache=no
+        run: vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php -vvv --dry-run --using-cache=no
